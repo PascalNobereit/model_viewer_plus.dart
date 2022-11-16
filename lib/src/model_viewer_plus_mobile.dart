@@ -355,7 +355,7 @@ class ModelViewerState extends State<ModelViewer> {
         name: 'Progress',
         onMessageReceived: (JavascriptMessage message) {
           var progress = double.parse(message.message);
-          if (progress > 0.98) {
+          if (progress == 1) {
             setState(() {
               isFinish = true;
             });
