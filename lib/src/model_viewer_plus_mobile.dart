@@ -25,14 +25,12 @@ const modelViewerTexture = document.querySelector("model-viewer");
 modelViewerTexture.addEventListener("progress", function(e) {
    Progress.postMessage(e.detail.totalProgress);
 });
-''';
-
-const String script1 = r'''
-const modelViewerTexture = document.querySelector("model-viewer");
 modelViewerTexture.addEventListener("model-visibility", function(e) {
    Load.postMessage( e.detail.visible);
 });
 ''';
+
+
 
 class ModelViewerState extends State<ModelViewer> {
   final Completer<WebViewController> _controller =
