@@ -6,73 +6,82 @@ import 'model_viewer_plus_stub.dart'
     if (dart.library.js) 'model_viewer_plus_web.dart';
 
 enum Loading { auto, lazy, eager }
+
 enum Reveal { auto, interaction, manual }
+
 enum ArScale { auto, fixed }
+
 enum ArPlacement { floor, wall }
+
 enum TouchAction { panY, panX, none }
+
 enum InteractionPolicy { allowWhenFocused, alwaysAllow }
+
 enum InteractionPrompt { auto, whenFocused, none }
+
 enum InteractionPromptStyle { wiggle, basic }
+
 enum Bounds { tight, legacy }
 
 /// Flutter widget for rendering interactive 3D models.
 class ModelViewer extends StatefulWidget {
-  ModelViewer({
-    Key? key,
-    this.backgroundColor = Colors.transparent,
-    required this.src,
-    this.alt,
-    this.poster,
-    this.seamlessPoster,
-    this.loading,
-    this.reveal,
-    this.withCredentials,
-    this.ar,
-    this.arModes,
-    this.arScale,
-    this.arPlacement,
-    this.iosSrc,
-    this.xrEnvironment,
-    this.cameraControls = true,
-    this.enablePan,
-    this.touchAction,
-    this.disableZoom,
-    this.orbitSensitivity,
-    this.autoRotate,
-    this.autoRotateDelay,
-    this.rotationPerSecond,
-    this.interactionPolicy,
-    this.interactionPrompt,
-    this.interactionPromptStyle,
-    this.interactionPromptThreshold,
-    this.cameraOrbit,
-    this.cameraTarget,
-    this.fieldOfView,
-    this.maxCameraOrbit,
-    this.minCameraOrbit,
-    this.maxFieldOfView,
-    this.minFieldOfView,
-    this.bounds,
-    this.interpolationDecay,
-    this.skyboxImage,
-    this.environmentImage,
-    this.exposure,
-    this.shadowIntensity,
-    this.shadowSoftness,
-    this.animationName,
-    this.animationCrossfadeDuration,
-    this.autoPlay,
-    this.variantName,
-    this.orientation,
-    this.scale,
-    this.posterColor,
-    this.minHotspotOpacity,
-    this.maxHotspotOpacity,
-    this.innerModelViewerHtml,
-    this.relatedCss,
-    this.relatedJs,
-    this.id,
-  }) : super(key: key);
+  ModelViewer(
+      {Key? key,
+      this.backgroundColor = Colors.transparent,
+      required this.src,
+      this.alt,
+      this.poster,
+      this.seamlessPoster,
+      this.loading,
+      this.reveal,
+      this.withCredentials,
+      this.ar,
+      this.arModes,
+      this.arScale,
+      this.arPlacement,
+      this.iosSrc,
+      this.xrEnvironment,
+      this.cameraControls = true,
+      this.enablePan,
+      this.touchAction,
+      this.disableZoom,
+      this.orbitSensitivity,
+      this.autoRotate,
+      this.autoRotateDelay,
+      this.rotationPerSecond,
+      this.interactionPolicy,
+      this.interactionPrompt,
+      this.interactionPromptStyle,
+      this.interactionPromptThreshold,
+      this.cameraOrbit,
+      this.cameraTarget,
+      this.fieldOfView,
+      this.maxCameraOrbit,
+      this.minCameraOrbit,
+      this.maxFieldOfView,
+      this.minFieldOfView,
+      this.bounds,
+      this.interpolationDecay,
+      this.skyboxImage,
+      this.environmentImage,
+      this.exposure,
+      this.shadowIntensity,
+      this.shadowSoftness,
+      this.animationName,
+      this.animationCrossfadeDuration,
+      this.autoPlay,
+      this.variantName,
+      this.orientation,
+      this.scale,
+      this.posterColor,
+      this.minHotspotOpacity,
+      this.maxHotspotOpacity,
+      this.innerModelViewerHtml,
+      this.relatedCss,
+      this.relatedJs,
+      this.id,
+      this.onVisible})
+      : super(key: key);
 
   // Loading Attributes
 
@@ -565,6 +574,8 @@ class ModelViewer extends StatefulWidget {
 
   /// The id of the [ModelViewer] in HTML.
   final String? id;
+
+  final VoidCallback? onVisible;
 
   @override
   State<ModelViewer> createState() => ModelViewerState();

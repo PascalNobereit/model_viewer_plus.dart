@@ -27,6 +27,13 @@ modelViewerTexture.addEventListener("progress", function(e) {
 });
 ''';
 
+const String script1 = r'''
+const modelViewerTexture = document.querySelector("model-viewer");
+modelViewerTexture.addEventListener("model-visibility", function(e) {
+   Load.postMessage( e.detail.visible);
+});
+''';
+
 class ModelViewerState extends State<ModelViewer> {
   final Completer<WebViewController> _controller =
       Completer<WebViewController>();
@@ -92,7 +99,8 @@ class ModelViewerState extends State<ModelViewer> {
               await webViewController.loadUrl(_proxyURL);
             },
             javascriptChannels: <JavascriptChannel>{
-              _messageJavascriptChannel(context),
+              _progressJavascriptChannel(context),
+              _loadJavascriptChannel(context)
             },
             navigationDelegate: (final NavigationRequest navigation) async {
               print(
@@ -350,7 +358,7 @@ class ModelViewerState extends State<ModelViewer> {
     });
   }
 
-  JavascriptChannel _messageJavascriptChannel(BuildContext context) {
+  JavascriptChannel _progressJavascriptChannel(BuildContext context) {
     return JavascriptChannel(
         name: 'Progress',
         onMessageReceived: (JavascriptMessage message) {
@@ -361,6 +369,16 @@ class ModelViewerState extends State<ModelViewer> {
             });
           }
           // print('it is ${progress}');
+        });
+  }
+
+  JavascriptChannel _loadJavascriptChannel(BuildContext context) {
+    return JavascriptChannel(
+        name: 'Load',
+        onMessageReceived: (JavascriptMessage message) {
+          if (message.message == "true") {
+            widget.onVisible?.call();
+          }
         });
   }
 
