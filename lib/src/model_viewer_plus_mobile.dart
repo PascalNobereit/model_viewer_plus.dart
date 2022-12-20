@@ -68,6 +68,11 @@ class ModelViewerState extends State<ModelViewer> {
       );
     } else {
       return InAppWebView(
+         initialOptions: InAppWebViewGroupOptions(
+    ios: IOSInAppWebViewOptions(
+      disallowOverScroll: true
+    )
+  ),
 
         // backgroundColor: Colors.transparent,
         // initialUrl: null,
