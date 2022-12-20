@@ -81,7 +81,7 @@ class ModelViewerState extends State<ModelViewer> {
         onWebViewCreated: (final InAppWebViewController InAppWebViewController) async {
           _controller.complete(InAppWebViewController);
           print('>>>> ModelViewer initializing... <$_proxyURL>'); // DEBUG
-          await InAppWebViewController.loadData(data:_proxyURL);
+          await InAppWebViewController.loadUrl(urlRequest:URLRequest(url: Uri.parse(_proxyURL)));
         },
         // javascriptChannels: <JavascriptChannel>{
         //   // _progressJavascriptChannel(context),
