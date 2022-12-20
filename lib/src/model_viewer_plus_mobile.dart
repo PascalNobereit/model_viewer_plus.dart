@@ -57,14 +57,6 @@ class ModelViewerState extends State<ModelViewer> {
     // TODO
   }
 
-  Widget _buildProgress() {
-    if (isFinish) {
-      return Container();
-    }
-    return Center(
-      child: CircularProgressIndicator(),
-    );
-  }
 
   @override
   Widget build(final BuildContext context) {
@@ -78,11 +70,11 @@ class ModelViewerState extends State<ModelViewer> {
         initialUrl: null,
         javascriptMode: JavascriptMode.unrestricted,
         initialMediaPlaybackPolicy: AutoMediaPlaybackPolicy.always_allow,
-        gestureRecognizers: <Factory<OneSequenceGestureRecognizer>>{
-          Factory<OneSequenceGestureRecognizer>(
-            () => EagerGestureRecognizer(),
-          ),
-        },
+        // gestureRecognizers: <Factory<OneSequenceGestureRecognizer>>{
+        //   Factory<OneSequenceGestureRecognizer>(
+        //     () => EagerGestureRecognizer(),
+        //   ),
+        // },
         onWebViewCreated: (final WebViewController webViewController) async {
           _controller.complete(webViewController);
           print('>>>> ModelViewer initializing... <$_proxyURL>'); // DEBUG
