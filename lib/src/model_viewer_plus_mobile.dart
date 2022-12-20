@@ -77,14 +77,19 @@ class ModelViewerState extends State<ModelViewer> {
             onVerticalDragUpdate: (details) {},
 
         child: WebView(
+          
           backgroundColor: Colors.transparent,
           initialUrl: null,
           javascriptMode: JavascriptMode.unrestricted,
           initialMediaPlaybackPolicy: AutoMediaPlaybackPolicy.always_allow,
           gestureRecognizers: <Factory<OneSequenceGestureRecognizer>>{
-            Factory<OneSequenceGestureRecognizer>(
-              () => EagerGestureRecognizer(),
-            ),
+            // Factory<OneSequenceGestureRecognizer>(
+            //   () => EagerGestureRecognizer(),
+            // ),
+              Factory<HorizontalDragGestureRecognizer>(
+            () => HorizontalDragGestureRecognizer()),
+        Factory<ScaleGestureRecognizer>(
+            () => ScaleGestureRecognizer()),
           },
           onWebViewCreated: (final WebViewController webViewController) async {
             _controller.complete(webViewController);
