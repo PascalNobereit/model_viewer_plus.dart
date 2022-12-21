@@ -77,8 +77,8 @@ class ModelViewerState extends State<ModelViewer> {
 
            Factory<OneSequenceGestureRecognizer>(
             () => VerticalDragGestureRecognizer(),),
-             Factory<OneSequenceGestureRecognizer>(
-            () =>HorizontalDragGestureRecognizer())
+            //  Factory<OneSequenceGestureRecognizer>(
+            // () =>HorizontalDragGestureRecognizer())
         },
         onWebViewCreated: (final WebViewController webViewController) async {
           _controller.complete(webViewController);
