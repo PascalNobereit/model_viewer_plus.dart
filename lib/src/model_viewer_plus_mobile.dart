@@ -65,7 +65,8 @@ class ModelViewerState extends State<ModelViewer> {
       );
     } else {
       return GestureDetector(
-        onDoubleTap: (){},
+        onDoubleTap: () {},
+        onLongPress: () {},
         child: WebView(
           zoomEnabled: false,
           backgroundColor: Colors.transparent,
@@ -87,7 +88,8 @@ class ModelViewerState extends State<ModelViewer> {
             _loadJavascriptChannel(context)
           },
           navigationDelegate: (final NavigationRequest navigation) async {
-            print('>>>> ModelViewer wants to load: <${navigation.url}>'); // DEBUG
+            print(
+                '>>>> ModelViewer wants to load: <${navigation.url}>'); // DEBUG
             if (!Platform.isAndroid) {
               if (Platform.isIOS && navigation.url == widget.iosSrc) {
                 await launch(
@@ -116,7 +118,7 @@ class ModelViewerState extends State<ModelViewer> {
               //     Flag.FLAG_ACTIVITY_NEW_TASK
               //   ], // Intent.FLAG_ACTIVITY_NEW_TASK,
               // );
-      
+
               // 2022-03-14 update
               final String fileURL;
               if (['http', 'https'].contains(Uri.parse(widget.src).scheme)) {
@@ -164,7 +166,7 @@ class ModelViewerState extends State<ModelViewer> {
               return await value.runJavascript(
                   'document.addEventListener("contextmenu", event => event.preventDefault());');
             });
-      
+
             print('>>>> ModelViewer finished loading: <$url>'); // DEBUG
           },
           onWebResourceError: (final WebResourceError error) {
