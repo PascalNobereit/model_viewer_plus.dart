@@ -22,7 +22,7 @@ import 'model_viewer_plus.dart';
 
 const String script = r'''
 const modelViewerTexture = document.querySelector("model-viewer");
-document.addEventListener("contextmenu", event => event.preventDefault());
+window.addEventListener("contextmenu", event => event.preventDefault());
 
 modelViewerTexture.addEventListener("model-visibility", function(e) {
    Load.postMessage( e.detail.visible);
