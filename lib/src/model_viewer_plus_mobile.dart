@@ -22,7 +22,7 @@ import 'model_viewer_plus.dart';
 
 const String script = r'''
 const modelViewerTexture = document.querySelector("model-viewer");
-document.addEventListener("contextmenu", event => event.preventDefault());
+       'document.addEventListener("contextmenu", event => event.preventDefault());'
 
 modelViewerTexture.addEventListener("model-visibility", function(e) {
    Load.postMessage( e.detail.visible);
@@ -76,9 +76,10 @@ class ModelViewerState extends State<ModelViewer> {
           initialUrl: null,
           javascriptMode: JavascriptMode.unrestricted,
           initialMediaPlaybackPolicy: AutoMediaPlaybackPolicy.always_allow,
-          gestureRecognizers: <Factory<OneSequenceGestureRecognizer>>{
+          gestureRecognizers: 
+          <Factory<OneSequenceGestureRecognizer>>{
             Factory<OneSequenceGestureRecognizer>(
-              () => EagerGestureRecognizer(),
+              () => LongPressGestureRecognizer(),
             ),
           },
           onWebViewCreated: (final WebViewController webViewController) async {
@@ -167,8 +168,6 @@ class ModelViewerState extends State<ModelViewer> {
             // _controller.future.then((value) async {
             await _webViewController
                 .runJavascript('document.body.style.overflow = \'hidden\';');
-                 await _webViewController
-                .runJavascript('document.addEventListener("contextmenu", event => event.preventDefault());');
 
             // });
 
