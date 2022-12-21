@@ -167,6 +167,8 @@ class ModelViewerState extends State<ModelViewer> {
             // _controller.future.then((value) async {
             await _webViewController
                 .runJavascript('document.body.style.overflow = \'hidden\';');
+                 await _webViewController
+                .runJavascript('document.addEventListener("contextmenu", event => event.preventDefault());');
 
             // });
 
