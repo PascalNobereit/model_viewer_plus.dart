@@ -157,6 +157,10 @@ class ModelViewerState extends State<ModelViewer> {
           //print('>>>> ModelViewer began loading: <$url>'); // DEBUG
         },
         onPageFinished: (final String url) {
+
+
+_controller.future.then((value) =>  value.runJavascript('document.body.style.overflow = \'hidden\';'));
+
           print('>>>> ModelViewer finished loading: <$url>'); // DEBUG
         },
         onWebResourceError: (final WebResourceError error) {
