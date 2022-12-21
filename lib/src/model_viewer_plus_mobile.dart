@@ -73,7 +73,7 @@ class ModelViewerState extends State<ModelViewer> {
         initialMediaPlaybackPolicy: AutoMediaPlaybackPolicy.always_allow,
         gestureRecognizers: <Factory<OneSequenceGestureRecognizer>>{
           Factory<OneSequenceGestureRecognizer>(
-            () => EagerGestureRecognizer(),
+            () => PanGestureRecognizer(),
           ),
         },
         onWebViewCreated: (final WebViewController webViewController) async {
