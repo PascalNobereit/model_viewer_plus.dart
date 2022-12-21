@@ -32,6 +32,9 @@ class ModelViewerState extends State<ModelViewer> {
   final Completer<WebViewController> _controller =
       Completer<WebViewController>();
 
+  late WebViewController _webViewController;
+
+
   HttpServer? _proxy;
   late String _proxyURL;
   bool isFinish = false;
@@ -79,6 +82,7 @@ class ModelViewerState extends State<ModelViewer> {
             ),
           },
           onWebViewCreated: (final WebViewController webViewController) async {
+                    _webViewController = webViewController;
             _controller.complete(webViewController);
             print('>>>> ModelViewer initializing... <$_proxyURL>'); // DEBUG
             await webViewController.loadUrl(_proxyURL);
@@ -159,13 +163,13 @@ class ModelViewerState extends State<ModelViewer> {
           onPageStarted: (final String url) {
             //print('>>>> ModelViewer began loading: <$url>'); // DEBUG
           },
-          onPageFinished: (final String url) {
-            _controller.future.then((value) async {
-              await value
+          onPageFinished: (final String url)async {
+            // _controller.future.then((value) async {
+              await _webViewController
                   .runJavascript('document.body.style.overflow = \'hidden\';');
-              return await value.runJavascript(
+              return await _webViewController.runJavascript(
                   'document.addEventListener("contextmenu", event => event.preventDefault());');
-            });
+            // });
 
             print('>>>> ModelViewer finished loading: <$url>'); // DEBUG
           },
