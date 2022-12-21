@@ -71,9 +71,14 @@ class ModelViewerState extends State<ModelViewer> {
         javascriptMode: JavascriptMode.unrestricted,
         initialMediaPlaybackPolicy: AutoMediaPlaybackPolicy.always_allow,
         gestureRecognizers: <Factory<OneSequenceGestureRecognizer>>{
-          Factory<OneSequenceGestureRecognizer>(
-            () => EagerGestureRecognizer(),
-          ),
+          // Factory<OneSequenceGestureRecognizer>(
+          //   () => EagerGestureRecognizer(),
+          // ),
+
+           Factory<OneSequenceGestureRecognizer>(
+            () => VerticalDragGestureRecognizer(),),
+             Factory<OneSequenceGestureRecognizer>(
+            () =>HorizontalDragGestureRecognizer())
         },
         onWebViewCreated: (final WebViewController webViewController) async {
           _controller.complete(webViewController);
