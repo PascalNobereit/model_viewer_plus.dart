@@ -75,8 +75,11 @@ class ModelViewerState extends State<ModelViewer> {
           //   () => EagerGestureRecognizer(),
           // ),
 
-           Factory<OneSequenceGestureRecognizer>(
-            () => VerticalDragGestureRecognizer(),),
+            Factory<OneSequenceGestureRecognizer>(
+            () => TapGestureRecognizer(),),
+
+          //  Factory<OneSequenceGestureRecognizer>(
+          //   () => VerticalDragGestureRecognizer(),),
             //  Factory<OneSequenceGestureRecognizer>(
             // () =>HorizontalDragGestureRecognizer())
         },
