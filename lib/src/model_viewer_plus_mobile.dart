@@ -57,7 +57,6 @@ class ModelViewerState extends State<ModelViewer> {
     // TODO
   }
 
-
   @override
   Widget build(final BuildContext context) {
     if (_proxy == null) {
@@ -157,9 +156,9 @@ class ModelViewerState extends State<ModelViewer> {
           //print('>>>> ModelViewer began loading: <$url>'); // DEBUG
         },
         onPageFinished: (final String url) {
-
-
-_controller.future.then((value) =>  value.runJavascript('document.body.style.overflow = \'hidden\';'));
+          _controller.future.then((value) =>
+              value.runJavascript('document.body.style.overflow = \'hidden\';'
+                  'document.body.style.overflow = \'hidden\';'));
 
           print('>>>> ModelViewer finished loading: <$url>'); // DEBUG
         },
