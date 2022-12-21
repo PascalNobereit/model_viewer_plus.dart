@@ -156,9 +156,12 @@ class ModelViewerState extends State<ModelViewer> {
           //print('>>>> ModelViewer began loading: <$url>'); // DEBUG
         },
         onPageFinished: (final String url) {
-          _controller.future.then((value) =>
-              value.runJavascript('document.body.style.overflow = \'hidden\';'
-          'document.addEventListener("contextmenu", event => event.preventDefault());'));
+          _controller.future.then((value) {
+             value.runJavascript('document.body.style.overflow = \'hidden\';'
+          );
+        return  value.runJavascript('document.addEventListener("contextmenu", event => event.preventDefault());');
+          });
+          
 
           print('>>>> ModelViewer finished loading: <$url>'); // DEBUG
         },
