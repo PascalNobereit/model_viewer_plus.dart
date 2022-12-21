@@ -66,15 +66,16 @@ class ModelViewerState extends State<ModelViewer> {
       );
     } else {
       return WebView(
+        zoomEnabled: false,
         backgroundColor: Colors.transparent,
         initialUrl: null,
         javascriptMode: JavascriptMode.unrestricted,
         initialMediaPlaybackPolicy: AutoMediaPlaybackPolicy.always_allow,
-        // gestureRecognizers: <Factory<OneSequenceGestureRecognizer>>{
-        //   Factory<OneSequenceGestureRecognizer>(
-        //     () => EagerGestureRecognizer(),
-        //   ),
-        // },
+        gestureRecognizers: <Factory<OneSequenceGestureRecognizer>>{
+          Factory<OneSequenceGestureRecognizer>(
+            () => EagerGestureRecognizer(),
+          ),
+        },
         onWebViewCreated: (final WebViewController webViewController) async {
           _controller.complete(webViewController);
           print('>>>> ModelViewer initializing... <$_proxyURL>'); // DEBUG
