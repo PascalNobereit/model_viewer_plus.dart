@@ -22,6 +22,7 @@ import 'model_viewer_plus.dart';
 
 const String script = r'''
 const modelViewerTexture = document.querySelector("model-viewer");
+       'document.addEventListener("contextmenu", event => event.preventDefault());'
 
 modelViewerTexture.addEventListener("model-visibility", function(e) {
    Load.postMessage( e.detail.visible);
@@ -33,7 +34,6 @@ class ModelViewerState extends State<ModelViewer> {
       Completer<WebViewController>();
 
   late WebViewController _webViewController;
-
 
   HttpServer? _proxy;
   late String _proxyURL;
@@ -82,7 +82,7 @@ class ModelViewerState extends State<ModelViewer> {
             ),
           },
           onWebViewCreated: (final WebViewController webViewController) async {
-                    _webViewController = webViewController;
+            _webViewController = webViewController;
             _controller.complete(webViewController);
             print('>>>> ModelViewer initializing... <$_proxyURL>'); // DEBUG
             await webViewController.loadUrl(_proxyURL);
@@ -163,12 +163,11 @@ class ModelViewerState extends State<ModelViewer> {
           onPageStarted: (final String url) {
             //print('>>>> ModelViewer began loading: <$url>'); // DEBUG
           },
-          onPageFinished: (final String url)async {
+          onPageFinished: (final String url) async {
             // _controller.future.then((value) async {
-              // await _webViewController
-              //     .runJavascript('document.body.style.overflow = \'hidden\';');
-              return await _webViewController.runJavascript(
-                  'document.addEventListener("contextmenu", event => event.preventDefault());');
+            await _webViewController
+                .runJavascript('document.body.style.overflow = \'hidden\';');
+
             // });
 
             print('>>>> ModelViewer finished loading: <$url>'); // DEBUG
