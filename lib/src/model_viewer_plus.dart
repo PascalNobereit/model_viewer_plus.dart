@@ -28,7 +28,7 @@ class ModelViewer extends StatefulWidget {
   ModelViewer(
       {Key? key,
       this.backgroundColor = Colors.transparent,
-       this.src,
+      required this.src,
       this.alt,
       this.poster,
       this.seamlessPoster,
@@ -100,7 +100,7 @@ class ModelViewer extends StatefulWidget {
   ///   (for example, `assets/MyModel.glb`)
   ///
   /// `<model-viewer>` offical document: https://modelviewer.dev/docs/#entrydocs-loading-attributes-src
-  final String? src;
+  final String src;
 
   /// Configures the model with custom text that will be used to describe the
   /// model to viewers who use a screen reader or otherwise depend on additional

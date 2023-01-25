@@ -133,18 +133,18 @@ class ModelViewerState extends State<ModelViewer> {
   }
 
   String _buildHTML(final String htmlTemplate) {
-    // if (widget.src.startsWith('file://')) {
-    //   // Local file URL can't be used in Flutter web.
-    //   debugPrint("file:// URL scheme can't be used in Flutter web.");
-    //   throw ArgumentError("file:// URL scheme can't be used in Flutter web.");
-    // }
+    if (widget.src.startsWith('file://')) {
+      // Local file URL can't be used in Flutter web.
+      debugPrint("file:// URL scheme can't be used in Flutter web.");
+      throw ArgumentError("file:// URL scheme can't be used in Flutter web.");
+    }
 
     return HTMLBuilder.build(
       htmlTemplate: htmlTemplate.replaceFirst(
           '<script type="module" src="model-viewer.min.js" defer></script>',
           ''),
       // Attributes
-      // src: widget.src,
+      src: widget.src,
       alt: widget.alt,
       poster: widget.poster,
       seamlessPoster: widget.seamlessPoster,

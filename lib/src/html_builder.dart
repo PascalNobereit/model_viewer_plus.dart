@@ -12,7 +12,7 @@ abstract class HTMLBuilder {
     String htmlTemplate = '',
     // Attributes
     // Loading Attributes
-     final String? src,
+    required final String src,
     final String? alt,
     final String? poster,
     final bool? seamlessPoster,
@@ -91,7 +91,7 @@ abstract class HTMLBuilder {
     // Attributes
     // Loading Attributes
     // src
-    // html.write(' src="${htmlEscape.convert(src)}"');
+    html.write(' src="${htmlEscape.convert(src)}"');
     // alt
     if (alt != null) {
       html.write(' alt="${htmlEscape.convert(alt)}"');

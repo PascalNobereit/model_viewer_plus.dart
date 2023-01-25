@@ -22,7 +22,7 @@ import 'model_viewer_plus.dart';
 
 const String script = r'''
 const modelViewerTexture = document.querySelector("model-viewer");
-
+window.addEventListener("selectionChange", event => event.preventDefault());
 
 modelViewerTexture.addEventListener("model-visibility", function(e) {
    Load.postMessage( e.detail.visible);
@@ -124,12 +124,12 @@ class ModelViewerState extends State<ModelViewer> {
               // );
 
               // 2022-03-14 update
-              // final String fileURL;
-              // if (['http', 'https'].contains(Uri.parse(widget.src).scheme)) {
-              //   fileURL = widget.src;
-              // } else {
-              //   fileURL = p.joinAll([_proxyURL, 'model']);
-              // }
+              final String fileURL;
+              if (['http', 'https'].contains(Uri.parse(widget.src).scheme)) {
+                fileURL = widget.src;
+              } else {
+                fileURL = p.joinAll([_proxyURL, 'model']);
+              }
               final intent = android_content.AndroidIntent(
                 action: "android.intent.action.VIEW", // Intent.ACTION_VIEW
                 // See https://developers.google.com/ar/develop/scene-viewer#3d-or-ar
@@ -142,7 +142,7 @@ class ModelViewerState extends State<ModelViewer> {
                       // 'title': '', // TODO: maybe set by the user
                       // TODO: further test, and make it 'ar_preferred'
                       'mode': 'ar_preferred',
-                      // 'file': fileURL,
+                      'file': fileURL,
                     }).toString(),
                 // package changed to com.google.android.googlequicksearchbox
                 // to support the widest possible range of devices
@@ -167,6 +167,8 @@ class ModelViewerState extends State<ModelViewer> {
             // _controller.future.then((value) async {
             await _webViewController
                 .runJavascript('document.body.style.overflow = \'hidden\';');
+                 await _webViewController
+                .runJavascript('document.addEventListener("contextmenu", event => event.preventDefault());');
 
             // });
 
@@ -253,7 +255,7 @@ class ModelViewerState extends State<ModelViewer> {
   }
 
   Future<void> _initProxy() async {
-    // final url = Uri.parse(widget.src);
+    final url = Uri.parse(widget.src);
     _proxy = await HttpServer.bind(InternetAddress.loopbackIPv4, 0);
 
     setState(() {
@@ -294,23 +296,23 @@ class ModelViewerState extends State<ModelViewer> {
           await response.close();
           break;
 
-        // case '/model':
-        //   if (url.isAbsolute && !url.isScheme("file")) {
-        //     // debugPrint(url.toString());
-        //     await response.redirect(url); // TODO: proxy the resource
-        //   } else {
-        //     final data = await (url.isScheme("file")
-        //         ? _readFile(url.path)
-        //         : _readAsset(url.path));
-        //     response
-        //       ..statusCode = HttpStatus.ok
-        //       ..headers.add("Content-Type", "application/octet-stream")
-        //       ..headers.add("Content-Length", data.lengthInBytes.toString())
-        //       ..headers.add("Access-Control-Allow-Origin", "*")
-        //       ..add(data);
-        //     await response.close();
-        //   }
-        //   break;
+        case '/model':
+          if (url.isAbsolute && !url.isScheme("file")) {
+            // debugPrint(url.toString());
+            await response.redirect(url); // TODO: proxy the resource
+          } else {
+            final data = await (url.isScheme("file")
+                ? _readFile(url.path)
+                : _readAsset(url.path));
+            response
+              ..statusCode = HttpStatus.ok
+              ..headers.add("Content-Type", "application/octet-stream")
+              ..headers.add("Content-Length", data.lengthInBytes.toString())
+              ..headers.add("Access-Control-Allow-Origin", "*")
+              ..add(data);
+            await response.close();
+          }
+          break;
 
         case '/favicon.ico':
           final text = utf8.encode("Resource '${request.uri}' not found");
@@ -328,15 +330,15 @@ class ModelViewerState extends State<ModelViewer> {
             await response.redirect(request.uri);
           } else if (request.uri.hasAbsolutePath) {
             // Some gltf models need other resources from the origin
-            // var pathSegments = [...url.pathSegments];
-            // pathSegments.removeLast();
-            // var tryDestination = p.joinAll([
-            //   url.origin,
-            //   ...pathSegments,
-            //   request.uri.path.replaceFirst('/', '')
-            // ]);
-            // debugPrint("Try: ${tryDestination}");
-            // await response.redirect(Uri.parse(tryDestination));
+            var pathSegments = [...url.pathSegments];
+            pathSegments.removeLast();
+            var tryDestination = p.joinAll([
+              url.origin,
+              ...pathSegments,
+              request.uri.path.replaceFirst('/', '')
+            ]);
+            debugPrint("Try: ${tryDestination}");
+            await response.redirect(Uri.parse(tryDestination));
           } else {
             debugPrint('404 with ${request.uri}');
             final text = utf8.encode("Resource '${request.uri}' not found");
